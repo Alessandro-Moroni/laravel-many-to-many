@@ -30,10 +30,15 @@
 
     <div class="table-projects">
 
-        <form action="{{ route('admin.projects.update', $project) }}" class="d-flex" method="POST" id="form-projects{{$project->id}}">
+        <form action="{{ route('admin.projects.update', $project) }}" class="" method="POST" id="form-projects{{$project->id}}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <input class="form-control" type="text" value="{{ $project->title }}" name="title">
+
+            <div class="my-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="file" id="image" class="form-control" name="image">
+            </div>
 
             <button type="submit" class="btn btn-primary ms-3 ">Update Project</button>
 

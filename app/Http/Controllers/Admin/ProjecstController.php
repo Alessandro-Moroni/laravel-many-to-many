@@ -85,9 +85,9 @@ class ProjecstController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
-        //
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -114,12 +114,21 @@ class ProjecstController extends Controller
             'image.image' => 'Upload file must be an image'
         ]);
 
+        $data = $request->all();
+        if(array_key_exists('image', $data)){
+            $image_path = Storage::put('uploads', $data['image']);
+            $data['image'] = $image_path;
+
+
+        }
+
         $exists = Project::where('title', $request->title)->first();
         if($exists){
             return redirect()->route('admin.projects.index')->with('error', 'Project exist');
 
         }else{
             $data['slug'] = Help::generateSlug($request->title, Project::class);
+            $project->image = $data['image'];
             $project->update($data);
 
             return redirect()->route('admin.projects.index')->with('success', 'Project modificated');
@@ -132,6 +141,10 @@ class ProjecstController extends Controller
      */
     public function destroy(Project $project)
     {
+        if($project->image){
+            Storage::disk('public')->delete($project->image);
+        }
+
         $project->delete();
         return redirect()->route('admin.projects.index')->with('success', 'Project deleted');
     }

@@ -63,7 +63,13 @@
                   </td>
 
                   <td>
-                    <img src="{{ asset('storage/'. $project->image) }}" alt="{{$project->image}}" alt="{{$project->title}}" width="100">
+                    @if ($project->image)
+                    <img src="{{ asset('storage/'. $project->image) }}"  alt="{{$project->title}}" width="100" class="project-img">
+
+                    @else
+                    <img src="/img/not-found.jpg"  alt="" width="100" class="project-img">
+
+                    @endif
                   </td>
 
                   <td>
@@ -72,18 +78,22 @@
 
 
 
-                  <td class="d-flex">
+                  <td class="d-flex ">
                     <a href="{{route('admin.projects.edit', $project->id)}}" class="btn btn-warning me-3">
                         <i class="fa-solid fa-pen"></i>
                     </a>
 
-                    <form action="{{ route('admin.projects.destroy', $project) }}" method="POST" onsubmit="return confirm('Are you sure want to delete?')">
+                    <form action="{{ route('admin.projects.destroy', $project) }}" method="POST" onsubmit="return confirm('Are you sure want to delete?')" class="me-3">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </form>
+
+                    <a href="{{route('admin.projects.show', $project->id)}}" class="btn btn-success">
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
                   </td>
                 </tr>
                 @endforeach
