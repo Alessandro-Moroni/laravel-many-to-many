@@ -50,6 +50,7 @@
               <tr>
                 <th scope="col"><a href="{{route('admin.orderby', ['direction'=> $direction, 'column' => 'title'])}}">Title</a></th>
                 <th scope="col">Image</th>
+                <th scope="col">Technology</th>
                 <th scope="col">Type</th>
                 <th scope="col">Actions</th>
               </tr>
@@ -70,6 +71,15 @@
                     <img src="/img/not-found.jpg"  alt="" width="100" class="project-img">
 
                     @endif
+                  </td>
+
+                  <td>
+                    @forelse ($project->technologies as $technology)
+                        <span class="badge rounded-pill text-bg-info">{{$technology->title}}</span>
+                    @empty
+                        No Technologies
+                    @endforelse
+
                   </td>
 
                   <td>
