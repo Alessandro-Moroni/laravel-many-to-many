@@ -1,0 +1,18 @@
+.types{
+    width: 100%;
+    height: calc(100vh - 60px);
+    // background-color: rgb(233, 233, 221);
+    background-image: url('https://www.zazzlemedia.co.uk/wp-content/uploads/2017/03/101contenttypes.png');
+    background-size: cover;
+    overflow-y: scroll;
+
+    h2{
+        color: orange;
+    }
+}
+
+
+
+.table-types{
+    width: 60%;
+}

@@ -1,0 +1,17 @@
+.projects{
+    width: 100%;
+    height: calc(100vh - 60px);
+    // background-color: rgb(233, 233, 221);
+    background-image: url('https://universoinformatico24.it/wp-content/uploads/2019/10/projectmanagementEDUCatt.jpg');
+    background-size: cover;
+    overflow-y: scroll;
+
+    h2{
+        color: orange;
+    }
+}
+
+.table-projects{
+    width: 60%;
+}
+

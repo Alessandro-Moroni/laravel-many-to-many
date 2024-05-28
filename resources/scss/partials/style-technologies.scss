@@ -1,0 +1,19 @@
+.technologies{
+    width: 100%;
+    height: calc(100vh - 60px);
+    // background-color: rgb(233, 233, 221);
+    background-image: url('https://media.noria.com/sites/Uploads/2019/11/19/3ad0b198-2717-4831-a344-f2e35e943bae_ArticleImages_RP31161_1234x694_08022019_extra_large.jpeg');
+    background-size: cover;
+    overflow-y: scroll;
+
+    h2{
+        color: orange;
+    }
+}
+
+
+
+
+.table-tecnologies{
+    width: 60%;
+}

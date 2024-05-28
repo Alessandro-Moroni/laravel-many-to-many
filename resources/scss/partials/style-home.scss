@@ -1,0 +1,11 @@
+.home{
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-image: url('https://www.protechguy.com/wp-content/uploads/sites/712/2021/01/bigstock-Closed-Padlock-On-Digital-Back-383628656-scaled.jpg');
+    background-size: cover;
+    overflow-y: scroll;
+
+    h1{
+        color: orange;
+    }
+}

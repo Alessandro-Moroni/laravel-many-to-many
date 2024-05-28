@@ -1,0 +1,43 @@
+.header-admin{
+    height: 60px;
+    background-color: rgb(81, 81, 255) !important;
+
+
+    .user{
+        color: orange;
+    }
+}
+
+.aside-bar{
+    width: 200px;
+    height: calc(100vh - 60px);
+    background-color: rgb(81, 81, 255);
+
+    ul{
+        padding-left: 15px;
+
+        li{
+            list-style: none;
+            margin-bottom: 20px;
+
+            a{
+                text-decoration: none;
+                color: white;
+            }
+            &:hover a{
+                color: orange;
+            }
+        }
+    }
+
+
+
+
+}
+
+.table{
+
+    input{
+        border: none;
+    }
+}
