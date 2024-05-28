@@ -35,9 +35,39 @@
             @method('PUT')
             <input class="form-control" type="text" value="{{ $project->title }}" name="title">
 
+
             <div class="my-3">
                 <label for="image" class="form-label">Image</label>
                 <input type="file" id="image" class="form-control" name="image">
+            </div>
+
+            <div class="check-bg my-3">
+
+                <label class="form-label" >Technologies:</label>
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+
+                    @foreach ($technologies as $technology)
+
+                    <input type="checkbox" class="btn-check" id="technology_{{$technology->id}}" autocomplete="off" value="{{$technology->id}}" name="technologies[]">
+                    <label class="btn btn-outline-primary" for="technology_{{$technology->id}}">{{$technology->title}}</label>
+
+                    @endforeach
+
+                </div>
+
+            </div>
+
+            <div class="my-3">
+
+                <label class="form-label" for="title">Types:</label>
+                <select class="form-select" aria-label="Default select example" name="type">
+                    @foreach ($types as $type)
+
+                    <option value="{{$type->id}}">{{$type->title}}</option>
+
+
+                    @endforeach
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary ms-3 ">Update Project</button>

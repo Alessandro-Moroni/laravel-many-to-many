@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use App\Functions\Helper as Help;
 use Illuminate\Support\Facades\Storage;
@@ -39,7 +41,10 @@ class ProjecstController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        $technologies = Technology::all();
+
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -49,13 +54,17 @@ class ProjecstController extends Controller
     {
         $exists = $request->validate([
             'title' => 'required|min:3|max:30',
-            'image' => 'sometimes|image'
+            'image' => 'sometimes|image',
+            'technologies' => 'array',
+            'technologies.*' => 'exists:technologies,id',
         ],
         [
             'title.required' => 'Title is obbligatory',
             'title.min' => 'Title must have at least 3 letters',
             'title.max' => 'Title must have a maximum of 30 letters',
-            'image.image' => 'Upload file must be an image'
+            'image.image' => 'Upload file must be an image',
+            'technologies.array' => 'Technologies must be an array',
+            'technologies.*.exists' => 'Technologies is invalidated',
         ]);
 
         $data = $request->all();
@@ -66,6 +75,7 @@ class ProjecstController extends Controller
 
         }
 
+
         $exists = Project::where('title', $request->title)->first();
         if($exists){
             return redirect()->route('admin.projects.index')->with('error', 'Project exist');
@@ -74,12 +84,19 @@ class ProjecstController extends Controller
             $new = new Project();
             $new->title = $request->title;
             $new->slug = Help::generateSlug($new->title, Project::class);
-            $new->image = $data['image'];
+            $new->image = $data['image'] ?? null;
+            $new->type_id = $request->type;
             $new->save();
 
-            return redirect()->route('admin.projects.index')->with('success', 'Project added');
 
         }
+
+        if(array_key_exists('technologies', $data)){
+            $new->technologies()->sync($data['technologies']);
+        }
+
+        return redirect()->route('admin.projects.index')->with('success', 'Project added');
+
     }
 
     /**
@@ -95,7 +112,10 @@ class ProjecstController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        $technologies = Technology::all();
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -105,13 +125,17 @@ class ProjecstController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|min:3|max:30',
-            'image' => 'sometimes|image'
+            'image' => 'sometimes|image',
+            'technologies' => 'array',
+            'technologies.*' => 'exists:technologies,id',
         ],
         [
             'title.required' => 'Title is obbligatory',
             'title.min' => 'Title must have at least 3 letters',
             'title.max' => 'Title must have a maximum of 30 letters',
-            'image.image' => 'Upload file must be an image'
+            'image.image' => 'Upload file must be an image',
+            'technologies.array' => 'Technologies must be an array',
+            'technologies.*.exists' => 'Technologies is invalidated',
         ]);
 
         $data = $request->all();
@@ -128,12 +152,18 @@ class ProjecstController extends Controller
 
         }else{
             $data['slug'] = Help::generateSlug($request->title, Project::class);
-            $project->image = $data['image'];
+            $project->image = $data['image'] ?? null;
+            $project->type_id = $request->type;
             $project->update($data);
 
-            return redirect()->route('admin.projects.index')->with('success', 'Project modificated');
 
         }
+
+        if(array_key_exists('technologies', $data)){
+            $project->technologies()->sync($data['technologies']);
+        }
+
+        return redirect()->route('admin.projects.index')->with('success', 'Project modificated');
     }
 
     /**

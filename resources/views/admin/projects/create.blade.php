@@ -42,14 +42,46 @@
                     <input type="file" id="image" class="form-control" name="image">
                 </div>
 
+
+
+                    <div class="check-bg my-3">
+
+                        <label class="form-label" >Technologies:</label>
+                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+
+                            @foreach ($technologies as $technology)
+
+                            <input type="checkbox" class="btn-check" id="technology_{{$technology->id}}" autocomplete="off" value="{{$technology->id}}" name="technologies[]">
+                            <label class="btn btn-outline-primary" for="technology_{{$technology->id}}">{{$technology->title}}</label>
+
+                            @endforeach
+
+                        </div>
+
+                    </div>
+
+                    <div class="my-3">
+
+
+                        <label class="form-label" for="title">Types:</label>
+                        <select class="form-select" aria-label="Default select example" name="type">
+                            @foreach ($types as $type)
+
+                            <option value="{{$type->id}}">{{$type->title}}</option>
+
+
+                            @endforeach
+                        </select>
+                    </div>
+
                 <button class="btn btn-success me-3" type="submit">Add project</button>
                 <button type="reset" class="btn btn-danger">Reset</button>
 
             </div>
 
-            <div>
 
-            </div>
+
+
 
         </form>
 

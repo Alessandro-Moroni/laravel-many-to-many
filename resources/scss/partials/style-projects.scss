@@ -12,11 +12,17 @@
 }
 
 .table-projects{
-    // width: 60%;
+    width: 60%;
     font-size: .8rem;
 }
 
 .project-img{
     height: 80px;
     object-fit: cover;
+}
+
+.check-bg{
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
 }

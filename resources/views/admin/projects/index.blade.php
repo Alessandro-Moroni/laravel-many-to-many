@@ -5,7 +5,7 @@
 <div class="p-3 projects">
     <h2>Projects</h2>
 
-    <div class="table-projects">
+    <div class="">
 
 
         @if ($errors->any())
