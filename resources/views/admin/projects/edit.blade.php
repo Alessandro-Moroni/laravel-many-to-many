@@ -33,7 +33,7 @@
         <form action="{{ route('admin.projects.update', $project) }}" class="" method="POST" id="form-projects{{$project->id}}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <input class="form-control" type="text" value="{{ $project->title }}" name="title">
+            <input class="form-control" type="text" value="{{ old('title', $project->title) }}" name="title">
 
 
             <div class="my-3">
@@ -48,7 +48,15 @@
 
                     @foreach ($technologies as $technology)
 
-                    <input type="checkbox" class="btn-check" id="technology_{{$technology->id}}" autocomplete="off" value="{{$technology->id}}" name="technologies[]">
+                   <input
+                      type="checkbox"
+                      class="btn-check"
+                      id="technology_{{$technology->id}}"
+                      autocomplete="off"
+                      value="{{$technology->id}}"
+                      name="technologies[]"
+                      {{in_array($technology->id, old('technologies',  $project->technologies->pluck('id')->toArray())) ? 'checked' : ''}}>
+
                     <label class="btn btn-outline-primary" for="technology_{{$technology->id}}">{{$technology->title}}</label>
 
                     @endforeach
@@ -63,7 +71,9 @@
                 <select class="form-select" aria-label="Default select example" name="type">
                     @foreach ($types as $type)
 
-                    <option value="{{$type->id}}">{{$type->title}}</option>
+                    <option value="{{$type->id}}" {{old('type', $project->type_id) == $type->id ? 'selected' : ''}}>
+                        {{$type->title}}
+                    </option>
 
 
                     @endforeach
